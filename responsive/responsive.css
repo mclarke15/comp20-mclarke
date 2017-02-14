@@ -1,0 +1,64 @@
+
+/* greater than 1400px */
+@media only screen 
+and (min-width: 1401px) { 
+	.ralphy {
+		width: 250px;
+		height: 186px;
+		background: url(ralphy.gif) 0 0;
+	}
+}
+
+/* 1200px - 1400px */
+@media only screen 
+and (min-width: 1201px) 
+and (max-width: 1400px) { 
+ 	.ralphy {
+		width: 250px;
+		height: 186px;
+		background: url(ralphy.gif) -250px 0;
+	}
+}
+
+/* 1000px - 1200px */
+@media only screen 
+and (min-width: 1001px) 
+and (max-width: 1200px) { 
+	.ralphy {
+		width: 250px;
+		height: 186px;
+		background: url(ralphy.gif) 0px -186px;
+	}
+}
+
+/* 800px - 1000px */
+@media only screen 
+and (min-width: 801px) 
+and (max-width: 1000px) { 
+	.ralphy {
+		width: 250px;
+		height: 186px;
+		background: url(ralphy.gif) -250px -186px;
+	}
+}
+
+/* 600px - 800px */
+@media only screen 
+and (min-width: 601px) 
+and (max-width: 800px) { 
+	.ralphy {
+		width: 250px;
+		height: 186px;
+		background: url(ralphy.gif) 0 -372px;
+	}
+}
+
+/* less than 600px */
+@media only screen 
+  and (max-width: 600px) { 
+	.ralphy {
+		width: 250px;
+		height: 186px;
+		background: url(ralphy.gif) -250px -372px;
+	}
+}
