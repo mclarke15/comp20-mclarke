@@ -1,0 +1,25 @@
+body {
+	background-color: #D65780;
+}
+
+h1 {
+	font-family: Helvetica;
+	text-align: center;
+	color: white;
+	font-weight: 200;
+}
+
+video {
+	display: block;
+	margin: 0 auto;
+}
+
+h3 {
+	font-family: Helvetica;
+	text-align: center;
+	font-weight: 200;
+	color: white;
+    margin: 20px;
+	padding: 10px;
+	border: 1px solid white;
+}
