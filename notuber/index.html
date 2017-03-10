@@ -7,7 +7,7 @@
 		<link rel="stylesheet" href="black-car.css"/>
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
 		<meta charset="utf-8">
-		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTQSI7VgH3XGal2XhDCXr_Hq0v0bRDRoM&callback=initMap"></script>
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTQSI7VgH3XGal2XhDCXr_Hq0v0bRDRoM"></script>
 		<script>
 			var lat = 0;
 			var lng = 0;
@@ -15,7 +15,7 @@
 			var myLocation = google.maps.LatLng(lat, lng);
 			var map;
 			var pin;
-			var infoWindow = google.maps.InfoWindow();
+			var infoWindow;
 			/*var Options = {
 				zoom: 15,
 				center: myLocation,
@@ -24,10 +24,10 @@
 
 			window.addEventListener('load', getCoordinates);
 			
-			function initMap() {
-				map = new google.maps.Map(document.getElementById("map"), {
+			function init() {
+				map = new google.maps.Map(document.getElementById("map-display"), {
 					zoom: 12,
-					center: myLocation,
+					center: myLocation
 				});
 			}
 
@@ -50,13 +50,13 @@
 
 			function renderMap() {
 
-				myLocation = new google.maps.LatLng(myLat, myLng);
+				myLocation = new google.maps.LatLng(lat, lng);
 					
 					map.panTo(myLocation);
 		
 					pin = new google.maps.Marker({
 						position: myLocation,
-						size: new gogole.maps.Size(3, 3)
+						size: new google.maps.Size(3, 3),
 						icon: 'profile.png'
 					});
 					pin.setMap(map);
@@ -67,14 +67,14 @@
 			}
 
 			function getInfo(lat, lng) {
-				request.open(/**/);
+				request.open("POST", "https://defense-in-derpth.herokuapp.com/submit", true);
 
 				request.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
 
 				request.onreadystatechange = function() {
 					if (request.readyState == 4 && request.status == 200) {
 						var info = request.responseText;
-						var locations = JSON.parse(data);
+						var locations = JSON.parse(info);
 						initPins(lat, lng, locations);
 					}
 				};
@@ -91,7 +91,7 @@
 							map: map
 						});
 
-						google.maps.events.addListener(pin, 'click', (function(pin, i) {
+						google.maps.event.addListener(pin, 'click', (function(pin, i) {
 							return function() {
 								var username = locations.vehicles[i].username;
 								var destLat = locations.vehicles[i].lat;
@@ -101,8 +101,7 @@
 								infoWindow.setContent(text);
 								infoWindow.open(map, pin);
 							}
-						}) 
-						(pin, i));
+						})(pin, i));
 					}
 				} else {
 					for (var i = 0; i < locations.passengers.length; i++) {
@@ -123,8 +122,7 @@
 								infoWindow.setContent(text);
 								infoWindow.open(map, pin);
 							}
-						})
-						(pin, i));
+						})(pin, i));
 					}
 				}
 			}
@@ -133,31 +131,30 @@
 				Number.prototype.toRad = function() { 
 					return this * Math.PI / 180;
 				}
-					var lat1 = destLat;
-					var lat2 = lat;
-					var lon1 = destLng;
-					var lon2 = lng;
+				var lat1 = destLat;
+				var lat2 = lat;
+				var lon1 = destLng;
+				var lon2 = lng;
 
-					var R = 6371; // km 
+				var R = 6371; // km 
 
-				    var dLat = (lat2-lat1).toRad();  
-				    var dLon = (lon2-lon1).toRad();  
-				    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
-				                    Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * 
-				                    Math.sin(dLon/2) * Math.sin(dLon/2);  
-				    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-				    var d = R * c; 
+			    var dLat = (lat2-lat1).toRad();  
+			    var dLon = (lon2-lon1).toRad();  
+			    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
+			                    Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * 
+			                    Math.sin(dLon/2) * Math.sin(dLon/2);  
+			    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+			    var d = R * c; 
 
-				    d = d * 0.62137 // to miles
+			    d = d * 0.62137 // to miles
 
-				    return d; 
-				}
+			    return d; 
 			}
 
 		</script>
 	</head>
 
-	<body onload="initMap()">
+	<body onload="init()">
 		<div id="map-display"> </div>
 	</body>
 
