@@ -16,19 +16,23 @@
 			var map;
 			var pin;
 			var infoWindow = google.maps.InfoWindow();
-			var Options = {
+			/*var Options = {
 				zoom: 15,
 				center: myLocation,
 				mapTypeId: google.maps.MapTypeId.ROADMAP
-			};
+			};*/
 
 			window.addEventListener('load', getCoordinates);
-			function init() {
-				map = new google.maps.Map(document.getElementById("map"), myOptions);
-				getMyLocation();
+			
+			function initMap() {
+				map = new google.maps.Map(document.getElementById("map"), {
+					zoom: 12,
+					center: myLocation,
+				});
 			}
 
 			function getCoordinates() {
+
 				function getMyLocation(position) {
 					if (navigator.geolocation) { 
 							//navigator.geolocation.getCurrentPosition(function(position) {
@@ -45,6 +49,7 @@
 			}
 
 			function renderMap() {
+
 				myLocation = new google.maps.LatLng(myLat, myLng);
 					
 					map.panTo(myLocation);
@@ -58,13 +63,101 @@
 						
 					var infoWindow = new google.maps.InfoWindow();
 
-					getData(lat, lng);
+					getInfo(lat, lng);
+			}
+
+			function getInfo(lat, lng) {
+				request.open(/**/);
+
+				request.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+
+				request.onreadystatechange = function() {
+					if (request.readyState == 4 && request.status == 200) {
+						var info = request.responseText;
+						var locations = JSON.parse(data);
+						initPins(lat, lng, locations);
+					}
+				};
+				request.send("username=GOCK80Ii&lat=" + lat + "&lng=" + lng);
+			}
+
+			function initPins(lat, lng, locations) {
+				if (locations.vehicles) {
+					for (var i = 0; i < locations.vehicles.length; i++) {
+						pin = new google.maps.Marler({
+							position: new google.maps.LatLng(locations.vehicles[i].lat, locations.vehicles[i].lng),
+							icon: 'black-car.png',
+							size: new google.maps.Size(3, 3),
+							map: map
+						});
+
+						google.maps.events.addListener(pin, 'click', (function(pin, i) {
+							return function() {
+								var username = locations.vehicles[i].username;
+								var destLat = locations.vehicles[i].lat;
+								var destLng = locations.vehicles[i].lng;
+								var distance = getDistance(lat, lng, destLat, destLng);
+								var text = "<div><p>Username: " + username + "</p><p>Miles from me: " + distance + "</p><div>";
+								infoWindow.setContent(text);
+								infoWindow.open(map, pin);
+							}
+						}) 
+						(pin, i));
+					}
+				} else {
+					for (var i = 0; i < locations.passengers.length; i++) {
+						pin = new google.maps.Marker({
+							position: new google.maps.LatLng(locations.passengers[i].lat, locations.passengers[i].lng),
+							icon: 'user.png',
+							size: new google.maps.Size(3, 3),
+							map: map
+						});
+
+						google.maps.event.addListener(pin, 'click', (function(pin, i) {
+							return function() {
+								var username = locations.vehicles[i].username;
+								var destLat = locations.vehicles[i].lat;
+								var destLng = locations.vehicles[i].lng;
+								var distance = getDistance(lat, lng, destLat, destLng);
+								var text = "<div><p>Username: " + username + "</p><p>Miles from me: " + distance + "</p><div>";
+								infoWindow.setContent(text);
+								infoWindow.open(map, pin);
+							}
+						})
+						(pin, i));
+					}
+				}
+			}
+
+			function getDistance(lat, lng, destLat, destLng) {
+				Number.prototype.toRad = function() { 
+					return this * Math.PI / 180;
+				}
+					var lat1 = destLat;
+					var lat2 = lat;
+					var lon1 = destLng;
+					var lon2 = lng;
+
+					var R = 6371; // km 
+
+				    var dLat = (lat2-lat1).toRad();  
+				    var dLon = (lon2-lon1).toRad();  
+				    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
+				                    Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * 
+				                    Math.sin(dLon/2) * Math.sin(dLon/2);  
+				    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+				    var d = R * c; 
+
+				    d = d * 0.62137 // to miles
+
+				    return d; 
+				}
 			}
 
 		</script>
 	</head>
 
-	<body onload="init()">
+	<body onload="initMap()">
 		<div id="map-display"> </div>
 	</body>
 
