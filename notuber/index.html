@@ -7,24 +7,20 @@
 		<link rel="stylesheet" href="black-car.css"/>
 		<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
 		<meta charset="utf-8">
-		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTQSI7VgH3XGal2XhDCXr_Hq0v0bRDRoM"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTQSI7VgH3XGal2XhDCXr_Hq0v0bRDRoM" async defer></script>
 		<script>
 			var lat = 0;
 			var lng = 0;
 			var request = new XMLHttpRequest();
-			var myLocation = google.maps.LatLng(lat, lng);
+			var myLocation;
 			var map;
 			var pin;
 			var infoWindow;
-			/*var Options = {
-				zoom: 15,
-				center: myLocation,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
-			};*/
 
 			window.addEventListener('load', getCoordinates);
 			
 			function init() {
+				myLocation = new google.maps.LatLng(lat, lng);
 				map = new google.maps.Map(document.getElementById("map-display"), {
 					zoom: 12,
 					center: myLocation
@@ -35,15 +31,13 @@
 
 				function getMyLocation(position) {
 					if (navigator.geolocation) { 
-							//navigator.geolocation.getCurrentPosition(function(position) {
 								lat = position.coords.latitude;
 								lng = position.coords.longitude;
 								renderMap(lat, lng);
-							//});
-						}
-						else {
+					}
+					else {
 							alert("Geolocation is not supported by your web browser");
-						}
+					}
 				}
 				navigator.geolocation.getCurrentPosition(getMyLocation);
 			}
@@ -150,7 +144,6 @@
 
 			    return d; 
 			}
-
 		</script>
 	</head>
 
