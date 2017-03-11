@@ -5,7 +5,7 @@
 	<head>
 		<title> Geolocation Maps </title>
 		<link rel="stylesheet" href="black-car.css"/>
-		<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+		<meta name="viewport" content="initial-scale=1.0"/>
 		<meta charset="utf-8">
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTQSI7VgH3XGal2XhDCXr_Hq0v0bRDRoM" async defer></script>
 		<script>
@@ -19,12 +19,14 @@
 
 			window.addEventListener('load', getCoordinates);
 			
-			function init() {
+			function initMap() {
 				myLocation = new google.maps.LatLng(lat, lng);
-				map = new google.maps.Map(document.getElementById("map-display"), {
-					zoom: 12,
-					center: myLocation
-				});
+				var myOptions = {
+					zoom: 13,
+					center: myLocation,
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				};
+				map = new google.maps.Map(document.getElementById("map-display"), myOptions);
 			}
 
 			function getCoordinates() {
@@ -147,7 +149,7 @@
 		</script>
 	</head>
 
-	<body onload="init()">
+	<body onload="initMap()">
 		<div id="map-display"> </div>
 	</body>
 
