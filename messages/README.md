@@ -4,6 +4,6 @@ Meredith Clarke
 Comp20
 Lab 7
 
-Identify what aspects of the work have been correctly implemented and what have not.
-Identify anyone with whom you have collaborated or discussed the assignment.
-Say approximately how many hours you have spent completing the assignment.
+Everything has been correctly implemented to the best of my knowledge.
+I discussed this assignment with Tati Doyle.
+I spent 2 hours on this assignment.
