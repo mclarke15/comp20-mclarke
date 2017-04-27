@@ -1,24 +1,41 @@
 body {
-
-
+	background-color: #62929E;
 }
 
 h1 {
-
-
+	text-align: center;
+	color: #C6C5B9;
+	margin-bottom: 0px;
 }
 
 h2 {
-
-
+	text-align: center;
+	color: #C6C5B9;
+	margin-top: 0px;
 }
 
 h3 {
-
-
+	color: #FDFDFF;
 }
 
 p {
+	color: #FDFDFF;
+	margin-left: 5%;
+	margin-right: 20%;
+}
 
-	
+img {
+	align-content: center;
+	margin-left: 0%;
+	margin-right: 5%;
+}
+
+#outer {
+	color: #FDFDFF;
+	margin-left: 5%;
+	margin-right: 20%;
+}
+
+#inner {
+    margin: 0em;
 }

@@ -2,8 +2,10 @@ Meredith Clarke
 Comp20
 Assignment 4
 
-Identify what aspects of the work have been correctly implemented and what have not.
+Every part of this assignment has been completed, to the best of my knowledge.
 
-Identify anyone with whom you have collaborated or discussed the assignment.
+I have not significantly collaborated with anybody on this assignment.
 
-Say approximately how many hours you have spent completing the assignment.
+I spent approximately six hours on this assignment.
+
+All references used are noted in the references section of index.html.
